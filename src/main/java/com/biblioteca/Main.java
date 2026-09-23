@@ -1,7 +1,9 @@
 package com.biblioteca;
 
 import com.biblioteca.model.Livro;
+import com.biblioteca.model.Usuario;
 import com.biblioteca.services.LivroService;
+import com.biblioteca.services.UsuarioService;
 
 import java.util.List;
 
@@ -27,5 +29,21 @@ public class Main {
 
         List<Livro> emprestados = livroService.ListarLivrosEmprestados();
         System.out.println("Emprestados: "+ emprestados);
+
+        UsuarioService usuarioService = new UsuarioService();
+        Usuario usuario1 = usuarioService.cadastrarUsuario(1L, "Samantha", "samantha@email.com");
+        Usuario usuario2 = usuarioService.cadastrarUsuario(2L, "Edna", "edna@email.com");
+        System.out.println(usuario1);
+        System.out.println(usuario2);
+
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
+
+        System.out.println("Todos usuários" + usuarios);
+
+        Usuario usuarioId1 = usuarioService.buscarPorId(1);
+        System.out.println("Usuario id 1: " + usuarioId1);
+
+        Usuario usuarioEmail = usuarioService.buscarPorEmail("edna@email.com");
+        System.out.println("Usuario pelo email: " + usuarioEmail);
     }
 }
