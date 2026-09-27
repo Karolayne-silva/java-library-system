@@ -2,6 +2,9 @@ package com.biblioteca.services;
 
 import com.biblioteca.enums.StatusEmprestimo;
 import com.biblioteca.enums.StatusLivro;
+import com.biblioteca.exceptions.EmprestimoNaoEncontradoException;
+import com.biblioteca.exceptions.LivroNaoEncontradoException;
+import com.biblioteca.exceptions.UsuarioNaoEncontradoException;
 import com.biblioteca.model.Emprestimo;
 import com.biblioteca.model.Livro;
 import com.biblioteca.model.Usuario;
@@ -28,7 +31,15 @@ public class EmprestimoService {
 
     public Emprestimo realizarEmprestimo(long idUsuario, Long idLivro){
         Usuario usuarioExist = usuarioService.buscarPorId(idUsuario);
+
+        if(usuarioExist == null){
+            throw new UsuarioNaoEncontradoException("Usuário não encontrado");
+        }
         Livro livroExist = livroService.buscarPorId(idLivro);
+
+        if(livroExist == null){
+            throw new LivroNaoEncontradoException("Livro não encontrado.");
+        }
 
         if(usuarioExist != null && livroExist != null){
 
@@ -60,6 +71,10 @@ public class EmprestimoService {
 
     public Emprestimo devolverLivro(long id){
         Emprestimo emprestimoExists = buscaPorId(id);
+
+        if(emprestimoExists == null){
+            throw new EmprestimoNaoEncontradoException("Emprestimo não encontrado.");
+        }
 
         if(emprestimoExists != null && emprestimoExists.getStatus() == StatusEmprestimo.ATIVO){
             emprestimoExists.setDataDevolucao(LocalDate.now());
@@ -103,5 +118,29 @@ public class EmprestimoService {
 
         }
         return emprestimosPorUsuario;
+    }
+
+    public void verificarEmprestimosAtrasados(){
+        LocalDate dataAtual = LocalDate.now();
+        for(int i = 0; i < emprestimos.size(); i++){
+            Emprestimo emprestimo = emprestimos.get(i);
+
+            if(emprestimo.getStatus() == StatusEmprestimo.ATIVO && dataAtual.isAfter(emprestimo.getDataPrevistaDevolucao())){
+                emprestimo.setStatus(StatusEmprestimo.ATRASADO);
+            }
+        }
+    }
+
+    public List<Emprestimo> listarEmprestimosAtrasados(){
+        List<Emprestimo> atrasados = new ArrayList<>();
+        for(int i = 0; i < emprestimos.size(); i++){
+            Emprestimo emprestimo = emprestimos.get(i);
+
+            if(emprestimo.getStatus() == StatusEmprestimo.ATRASADO){
+                atrasados.add(emprestimo);
+            }
+
+        }
+        return atrasados;
     }
 }

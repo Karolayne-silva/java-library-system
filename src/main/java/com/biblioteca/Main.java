@@ -51,11 +51,15 @@ public class Main {
 
         Emprestimo emprestimo1 = emprestimoService.realizarEmprestimo(1, 1L);
         //Emprestimo emprestimo2 = emprestimoService.realizarEmprestimo(2, 1L);
-        Emprestimo devolver1 = emprestimoService.devolverLivro(1);
-        Emprestimo devolver2 = emprestimoService.devolverLivro(1);
-        System.out.println("LIVRO EMPRESTADO: " + emprestimo1);
-        System.out.println("LIVRO DEVOLVIDO1: " + devolver1);
-        System.out.println("LIVRO DEVOLVIDO2: " + devolver2);
+//        Emprestimo devolver1 = emprestimoService.devolverLivro(1);
+//        Emprestimo devolver2 = emprestimoService.devolverLivro(1);
+//        System.out.println("LIVRO EMPRESTADO: " + emprestimo1);
+//        System.out.println("LIVRO DEVOLVIDO1: " + devolver1);
+//        System.out.println("LIVRO DEVOLVIDO2: " + devolver2);
+
+        emprestimoService.verificarEmprestimosAtrasados();
+        List<Emprestimo> emprestimo2 = emprestimoService.listarEmprestimosAtrasados();
+        System.out.println("ATRASADOS: " +emprestimo2);
 
     }
 }
