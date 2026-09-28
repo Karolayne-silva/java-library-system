@@ -3,11 +3,11 @@ package com.biblioteca.model;
 import com.biblioteca.enums.StatusLivro;
 
 public class Livro {
-    public long id;
-    public String titulo;
-    public String autor;
-    public String categoria;
-    public StatusLivro status;
+    private final long id;
+    private String titulo;
+    private String autor;
+    private String categoria;
+    private StatusLivro status;
 
     public Livro( long id, String titulo, String autor, String categoria) {
         this.titulo = titulo;
@@ -19,10 +19,6 @@ public class Livro {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getTitulo() {

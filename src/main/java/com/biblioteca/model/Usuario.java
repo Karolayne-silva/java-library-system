@@ -1,7 +1,7 @@
 package com.biblioteca.model;
 
 public class Usuario {
-    private long id;
+    private final long id;
     private String nome;
     private String email;
 
@@ -21,10 +21,6 @@ public class Usuario {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getEmail() {

@@ -17,8 +17,11 @@ public class Main {
         livroService.cadastrarLivro(1L, "Livro 1", "Karol", "romance");
         livroService.cadastrarLivro(2L, "Livro 2", "Karolayne", "romance");
         livroService.cadastrarLivro(3L, "Livro 3", "Sarah", "terror");
+        livroService.cadastrarLivro(4L, "Livro 4", "Vitoria", "Suspense");
 
         List<Livro> livros = livroService.listarLivros();
+
+        //System.out.println(livros);
 
         //crio uma variavel do tipo Livro pra guardar o retorno do service
 //        Livro livro1 = livroService.buscarPorId(1);
@@ -50,6 +53,10 @@ public class Main {
         EmprestimoService emprestimoService = new EmprestimoService(usuarioService, livroService);
 
         Emprestimo emprestimo1 = emprestimoService.realizarEmprestimo(1, 1L);
+        Emprestimo emprestimo2 = emprestimoService.realizarEmprestimo(1, 2L);
+        Emprestimo emprestimo3 = emprestimoService.realizarEmprestimo(1, 3L);
+        Emprestimo emprestimo4 = emprestimoService.realizarEmprestimo(1, 4L);
+
         //Emprestimo emprestimo2 = emprestimoService.realizarEmprestimo(2, 1L);
 //        Emprestimo devolver1 = emprestimoService.devolverLivro(1);
 //        Emprestimo devolver2 = emprestimoService.devolverLivro(1);
@@ -57,9 +64,9 @@ public class Main {
 //        System.out.println("LIVRO DEVOLVIDO1: " + devolver1);
 //        System.out.println("LIVRO DEVOLVIDO2: " + devolver2);
 
-        emprestimoService.verificarEmprestimosAtrasados();
-        List<Emprestimo> emprestimo2 = emprestimoService.listarEmprestimosAtrasados();
-        System.out.println("ATRASADOS: " +emprestimo2);
+//        emprestimoService.verificarEmprestimosAtrasados();
+//        List<Emprestimo> emprestimo2 = emprestimoService.listarEmprestimosAtrasados();
+//        System.out.println("ATRASADOS: " +emprestimo2);
 
     }
 }

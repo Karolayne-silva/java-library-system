@@ -5,8 +5,8 @@ import com.biblioteca.enums.StatusEmprestimo;
 import java.time.LocalDate;
 
 public class Emprestimo {
-    private long id;
-    private Usuario usuario;
+    private final long id;
+    private final Usuario usuario;
     private Livro livro;
     private LocalDate dataEmprestimo;
     private LocalDate dataPrevistaDevolucao;
@@ -27,16 +27,8 @@ public class Emprestimo {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Livro getLivro() {

@@ -5,6 +5,7 @@ import com.biblioteca.model.Livro;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class LivroService {
     public List<Livro> livros = new ArrayList<>();
@@ -23,51 +24,57 @@ public class LivroService {
         return livros;
     }
 
-    public Livro buscarPorId(long id){
-        for(int i = 0; i < livros.size(); i++){
-            Livro livro = livros.get(i);
+    public Optional<Livro> buscarPorId(long id){
 
-            if(livro.getId() == id){
-                return livro;
-            }
-        }
-        return null;
+         return livros.stream().filter(livro -> livro.getId() == id).findFirst();
+//        for(int i = 0; i < livros.size(); i++){
+//            Livro livro = livros.get(i);
+//
+//            if(livro.getId() == id){
+//                return livro;
+//            }
+//        }
+//        return null;
     }
 
-    public Livro buscarPorTitulo(String titulo){
-        for(int i = 0; i < livros.size(); i++){
-            Livro livro = livros.get(i);
+    public Optional<Livro> buscarPorTitulo(String titulo){
 
-            if(livro.getTitulo().equals(titulo)){
-                return livro;
-            }
-        }
-        return null;
+        return livros.stream().filter(livro -> livro.getTitulo().equals(titulo)).findFirst();
+//        for(int i = 0; i < livros.size(); i++){
+//            Livro livro = livros.get(i);
+//
+//            if(livro.getTitulo().equals(titulo)){
+//                return livro;
+//            }
+//        }
+//        return null;
     }
 
     public List<Livro> ListarLivrosDisponiveis(){
         List<Livro> disponiveis = new ArrayList<>();
 
-        for(int i = 0; i < livros.size(); i++){
-            Livro livro = livros.get(i);
-
-            if(livro.getStatus().equals(StatusLivro.DISPONIVEL)){
-                disponiveis.add(livro);
-            }
-        }
+        livros.stream().filter(livro -> livro.getStatus() == StatusLivro.DISPONIVEL).forEach(disponiveis::add);
+//        for(int i = 0; i < livros.size(); i++){
+//            Livro livro = livros.get(i);
+//
+//            if(livro.getStatus().equals(StatusLivro.DISPONIVEL)){
+//                disponiveis.add(livro);
+//            }
+//        }
         return disponiveis;
     }
 
     public List<Livro> ListarLivrosEmprestados(){
         List<Livro> emprestados = new ArrayList<>();
 
-        for(int i = 0; i < livros.size(); i++){
-            Livro livro = livros.get(i);
-
-            if(livro.getStatus().equals(StatusLivro.EMPRESTADO)){
-                emprestados.add(livro);
-            }
-        }
+        livros.stream().filter(livro -> livro.getStatus() == StatusLivro.EMPRESTADO).forEach(emprestados::add);
+//        for(int i = 0; i < livros.size(); i++){
+//            Livro livro = livros.get(i);
+//
+//            if(livro.getStatus().equals(StatusLivro.EMPRESTADO)){
+//                emprestados.add(livro);
+//            }
+//        }
 
         return emprestados;
     }

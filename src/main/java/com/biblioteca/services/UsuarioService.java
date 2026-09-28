@@ -4,6 +4,7 @@ import com.biblioteca.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UsuarioService {
     List<Usuario> usuarios = new ArrayList<>();
@@ -19,25 +20,30 @@ public class UsuarioService {
         return usuarios;
     }
 
-    public Usuario buscarPorId(long id){
-        for(int i = 0; i < usuarios.size(); i++){
-            Usuario usuario = usuarios.get(i);
+    public Optional<Usuario> buscarPorId(long id){
 
-            if(usuario.getId() == id){
-                return usuario;
-            }
-        }
-        return null;
+        //        for(int i = 0; i < usuarios.size(); i++){
+//            Usuario usuario = usuarios.get(i);
+//
+//            if(usuario.getId() == id){
+//                return usuario;
+//            }
+//        }
+//        return null;
+
+        return usuarios.stream().filter(user -> user.getId() == id).findFirst();
     }
 
-    public Usuario buscarPorEmail(String email){
-        for(int i = 0; i < usuarios.size(); i++){
-            Usuario usuario = usuarios.get(i);
+    public Optional<Usuario> buscarPorEmail(String email){
 
-            if(usuario.getEmail().equals(email)){
-                return usuario;
-            }
-        }
-        return null;
+        return usuarios.stream().filter(user -> user.getEmail().equals(email)).findFirst();
+//        for(int i = 0; i < usuarios.size(); i++){
+//            Usuario usuario = usuarios.get(i);
+//
+//            if(usuario.getEmail().equals(email)){
+//                return usuario;
+//            }
+//        }
+//        return null;
     }
 }
